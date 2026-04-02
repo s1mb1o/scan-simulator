@@ -1,9 +1,40 @@
 [project]
 name = "scan-simulator"
 version = "0.1.0"
-description = "Synthetic scan/photo degradation for document images"
+description = "Realistic synthetic degradation of document images — simulate scans, phone photos, photocopies, and aged paper for CV/OCR data augmentation"
 license = "MIT"
 requires-python = ">=3.10"
+readme = "README.md"
+authors = [
+    { name = "Alexander Shmelev" },
+]
+keywords = [
+    "data-augmentation",
+    "document-image",
+    "image-degradation",
+    "scan-simulation",
+    "synthetic-data",
+    "ocr",
+    "document-ai",
+    "computer-vision",
+    "floor-plan",
+    "image-processing",
+    "domain-adaptation",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "opencv-python>=4.8",
     "numpy>=1.24",
@@ -12,6 +43,12 @@ dependencies = [
     "scikit-image>=0.21",
     "pyyaml>=6.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/s1mb1o/scan-simulator"
+Repository = "https://github.com/s1mb1o/scan-simulator"
+Documentation = "https://github.com/s1mb1o/scan-simulator#readme"
+Issues = "https://github.com/s1mb1o/scan-simulator/issues"
 
 [project.scripts]
 scan-simulator = "scan_simulator.__main__:main"

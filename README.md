@@ -1,21 +1,86 @@
 # scan-simulator
 
-Synthetic degradation pipeline that transforms clean digital images (floor plans,
-technical drawings, documents) into realistic scan/photo-like images. Useful for
-training and evaluating CV models on inputs that look like real-world scans, phone
-photos, and photocopies.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/scan-simulator.svg)](https://pypi.org/project/scan-simulator/)
 
-**[See visual demo of all 23 transforms and 6 presets](DEMO.md)**
+Synthetic degradation pipeline that transforms clean digital images into
+realistic **scans**, **phone photos**, **photocopies**, and **aged documents**.
+Built for **data augmentation** in document AI, OCR, layout analysis, and
+floor plan recognition pipelines.
 
-## Why
+![All transforms overview](docs/images/composite_all_transforms.png)
 
-CV models trained on clean digital images often fail on real-world inputs: scanned
-PDFs, phone photos of blueprints, photocopies, aged drawings. This domain gap can
-be bridged by synthetically degrading clean training images with physically-motivated
-transforms that simulate real scanning/photography artifacts — without collecting
-thousands of real scans.
+**[See visual demo of all 25 transforms and 6 presets](DEMO.md)**
 
-## Degradation Effects
+## Key Features
+
+- **25 physically-motivated transforms** — paper aging, fold marks, wrinkles,
+  scanner shadows, moiré, lens blur, JPEG artifacts, chromatic aberration, and more
+- **6 ready-to-use presets** — from clean office scans to heavily degraded photocopies
+- **Mask-aware** — applies identical geometric transforms to ground-truth masks,
+  keeping segmentation labels aligned
+- **CLI + Python API** — use as a command-line tool or integrate into training loops
+- **Batch processing** — parallel processing of entire directories
+- **Configurable** — YAML-based configuration, combine and tune any transforms
+- **Deterministic seeds** — reproducible augmentation for experiment tracking
+
+## Installation
+
+```bash
+pip install scan-simulator
+```
+
+Or install from source:
+
+```bash
+git clone https://github.com/s1mb1o/scan-simulator.git
+cd scan-simulator
+pip install -e .
+```
+
+## Quick Start
+
+### Command Line
+
+```bash
+# Single image with default preset
+scan-simulator input.png -o output.png
+
+# Batch directory (parallel)
+scan-simulator input_dir/ -o output_dir/ --workers 8
+
+# Specific preset
+scan-simulator input.png -o output.png --preset photocopy
+
+# With ground-truth mask (geometric transforms applied to both)
+scan-simulator input.png -o output.png --mask mask.png --mask-out mask_out.png
+
+# Preview grid (3x3 random variants)
+scan-simulator input.png --preview 3x3 -o grid.png
+```
+
+### Python API
+
+```python
+from scan_simulator import ScanSimulator
+
+sim = ScanSimulator.from_preset("scan-heavy")
+degraded_image, degraded_mask = sim(image, mask=mask)
+```
+
+## Presets
+
+| Preset | Simulates | Severity |
+|--------|-----------|----------|
+| `scan-clean` | Well-maintained office scanner | Light |
+| `scan-heavy` | Old/cheap scanner, aged paper | Heavy |
+| `photo-indoor` | Phone photo under indoor lighting | Medium |
+| `photo-outdoor` | Phone photo in natural light | Light-Medium |
+| `photocopy` | Multi-generation photocopy | Heavy |
+| `archive` | Aged/stored document (yellowed, foxed) | Medium-Heavy |
+
+## Transforms
 
 ### Paper & Aging
 - **Paper color** — non-uniform yellowing, coffee-stain patches, foxing spots
@@ -30,11 +95,13 @@ thousands of real scans.
 - **Holes** — punch holes, worm/insect holes, torn spots with fiber edges
 
 ### Scanner Artifacts
-- **Rotation** — slight misalignment (±5°) with background fill
+- **Rotation** — slight misalignment (+-5 deg) with background fill
 - **Perspective** — mild trapezoid distortion (as if photographed at angle)
 - **Uneven illumination** — vignetting, light falloff at edges, flash hotspot
 - **Scanner lid shadow** — dark gradient along one edge
-- **Moiré pattern** — interference pattern from scanning printed halftones
+- **Moire pattern** — interference pattern from scanning printed halftones
+- **Dirty rollers** — horizontal/vertical banding from contaminated scanner rollers
+- **Book binding** — page curvature and darkening near spine fold
 
 ### Camera/Photo Artifacts
 - **Lens blur** — slight defocus, especially at edges (depth-of-field)
@@ -48,55 +115,25 @@ thousands of real scans.
 - **Stamps/watermarks** — semi-transparent overlay
 - **Pen bleed** — line thickening with fuzzy edges
 
-## Usage
+## Use Cases
 
-```bash
-# Single image
-python -m scan_simulator input.png -o output.png
-
-# Batch directory (parallel)
-python -m scan_simulator input_dir/ -o output_dir/ --workers 8
-
-# With specific preset
-python -m scan_simulator input.png -o output.png --preset scan-clean
-python -m scan_simulator input.png -o output.png --preset scan-heavy
-python -m scan_simulator input.png -o output.png --preset photo-indoor
-python -m scan_simulator input.png -o output.png --preset photocopy
-
-# With GT mask (applies same geometric transforms to mask)
-python -m scan_simulator input.png -o output.png --mask mask.png --mask-out mask_out.png
-
-# Preview grid (multiple random variants of one image)
-python -m scan_simulator input.png --preview 3x3 -o grid.png
-
-# Custom config
-python -m scan_simulator input.png -o output.png --config custom.yaml
-```
-
-## Integration with Training
-
-```python
-from scan_simulator import ScanSimulator
-
-sim = ScanSimulator.from_preset("scan-heavy")
-degraded_image, degraded_mask = sim(image, mask=mask)
-```
-
-## Presets
-
-| Preset | Use Case | Severity |
-|--------|----------|----------|
-| `scan-clean` | Well-maintained office scanner | Light |
-| `scan-heavy` | Old/cheap scanner, aged paper | Heavy |
-| `photo-indoor` | Phone photo under indoor lighting | Medium |
-| `photo-outdoor` | Phone photo in natural light | Light–Medium |
-| `photocopy` | Multi-generation photocopy | Heavy |
-| `archive` | Aged/stored document (yellowed, foxed) | Medium–Heavy |
+- **Document AI / OCR training** — bridge the domain gap between clean digital
+  inputs and real-world scanned documents
+- **Floor plan recognition** — augment clean CAD exports to match scanned blueprints
+- **Layout analysis** — train models robust to scan quality variations
+- **Historical document processing** — simulate aging and degradation artifacts
+- **Quality assurance** — stress-test document processing pipelines
 
 ## Dependencies
 
-- opencv-python
-- numpy
+- Python 3.10+
+- OpenCV
+- NumPy
 - Pillow
-- scipy (for elastic deformation)
-- scikit-image (for noise models)
+- SciPy
+- scikit-image
+- PyYAML
+
+## License
+
+[MIT](LICENSE)

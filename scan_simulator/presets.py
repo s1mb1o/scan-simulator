@@ -26,6 +26,7 @@ PRESETS: dict[str, dict] = {
             "Perspective":    {"p": 0.3, "strength": [0.01, 0.03]},
             "UnevenLight":    {"p": 0.6, "falloff": [0.15, 0.35]},
             "ScannerShadow":  {"p": 0.4, "width": [0.05, 0.12]},
+            "DirtyRollers":   {"p": 0.3, "intensity": [0.08, 0.2], "line_width": [5, 12]},
             "GaussianNoise":  {"p": 0.5, "sigma": [8, 20]},
             "JPEGArtifacts":  {"p": 0.6, "quality": [20, 45]},
             "CoffeeStain":    {"p": 0.2, "count": [1, 2]},
@@ -43,6 +44,7 @@ PRESETS: dict[str, dict] = {
             "GaussianNoise":       {"p": 0.6, "sigma": [10, 25]},
             "ChromaticAberration": {"p": 0.3, "shift": [1, 2]},
             "JPEGArtifacts":       {"p": 0.5, "quality": [25, 55]},
+            "BookBinding":         {"p": 0.2, "curve_depth": [0.02, 0.05]},
         }
     },
     "photo-outdoor": {
@@ -64,6 +66,7 @@ PRESETS: dict[str, dict] = {
             "Rotation":       {"p": 0.5, "angle": [-2.0, 2.0]},
             "UnevenLight":    {"p": 0.5, "falloff": [0.1, 0.25]},
             "Moire":          {"p": 0.4, "frequency": [0.08, 0.15], "strength": [0.03, 0.08]},
+            "DirtyRollers":   {"p": 0.3, "intensity": [0.05, 0.15]},
             "GaussianNoise":  {"p": 0.5, "sigma": [5, 15]},
             "JPEGArtifacts":  {"p": 0.5, "quality": [25, 50]},
         }

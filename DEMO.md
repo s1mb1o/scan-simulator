@@ -6,7 +6,7 @@ and through each preset pipeline (6 random variants per preset).
 
 ## Overview
 
-All 23 transforms at a glance — original on the left in each row, transforms to the right:
+All 25 transforms at a glance — original on the left in each row, transforms to the right:
 
 ![All transforms overview](docs/images/composite_all_transforms.png)
 
@@ -83,6 +83,14 @@ All 23 transforms at a glance — original on the left in each row, transforms t
 **Moire** — Sinusoidal interference pattern from scanning printed halftones.
 
 ![Moire](docs/images/Moire.png)
+
+**DirtyRollers** — Horizontal/vertical banding from contaminated scanner rollers with non-uniform pressure.
+
+![DirtyRollers](docs/images/DirtyRollers.png)
+
+**BookBinding** — Page curvature and shadow near book spine, with slight horizontal compression.
+
+![BookBinding](docs/images/BookBinding.png)
 
 ---
 

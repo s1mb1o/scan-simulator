@@ -101,6 +101,8 @@ def main():
         "UnevenLight":         {"falloff": 0.35},
         "ScannerShadow":       {"width": 0.12, "darkness": 0.5},
         "Moire":               {"frequency": 0.12, "strength": 0.08},
+        "DirtyRollers":        {"intensity": 0.2, "line_width": 8},
+        "BookBinding":         {"curve_depth": 0.05, "darkness": 0.45, "curve_width": 0.3},
         "DefocusBlur":         {"sigma": 1.8},
         "MotionBlur":          {"size": 9},
         "GaussianNoise":       {"sigma": 22, "sp_prob": 0.003},
@@ -115,7 +117,7 @@ def main():
     categories = {
         "Paper & Aging":     ["PaperColor", "PaperTexture", "InkFading", "CoffeeStain", "Foxing"],
         "Physical Damage":   ["FoldMark", "Wrinkle", "EdgeWear", "SurfaceWear", "Holes"],
-        "Scanner Artifacts": ["Rotation", "Perspective", "UnevenLight", "ScannerShadow", "Moire"],
+        "Scanner Artifacts": ["Rotation", "Perspective", "UnevenLight", "ScannerShadow", "Moire", "DirtyRollers", "BookBinding"],
         "Camera Artifacts":  ["DefocusBlur", "MotionBlur", "GaussianNoise", "JPEGArtifacts", "ChromaticAberration"],
         "Drawing Artifacts": ["PenBleed", "HandAnnotation", "Watermark"],
     }
@@ -176,11 +178,6 @@ def main():
                     row_images.append(add_label(thumb, name, 0.45))
                     break
 
-        # Pad row to max columns (6: original + 5 transforms)
-        max_cols = 6
-        while len(row_images) < max_cols:
-            row_images.append(np.full_like(row_images[0], 255))
-
         # Add category label on left
         row = np.hstack([
             np.full((row_images[0].shape[0], 2, 3), 180, dtype=np.uint8).astype(np.uint8)
@@ -194,6 +191,10 @@ def main():
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
         rows.append(np.vstack([banner, row]))
 
+    # Pad all rows to same width
+    max_w = max(r.shape[1] for r in rows)
+    rows = [np.hstack([r, np.full((r.shape[0], max_w - r.shape[1], 3), 255, dtype=np.uint8)])
+            if r.shape[1] < max_w else r for r in rows]
     composite = np.vstack(rows)
     composite_path = output_dir / "composite_all_transforms.png"
     cv2.imwrite(str(composite_path), composite)

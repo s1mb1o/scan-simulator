@@ -3,7 +3,7 @@
 from .base import BaseTransform
 from .paper import PaperColor, PaperTexture, InkFading, CoffeeStain, Foxing
 from .damage import FoldMark, Wrinkle, EdgeWear, SurfaceWear, Holes
-from .scanner import Rotation, Perspective, UnevenLight, ScannerShadow, Moire
+from .scanner import Rotation, Perspective, UnevenLight, ScannerShadow, Moire, DirtyRollers, BookBinding
 from .camera import DefocusBlur, MotionBlur, GaussianNoise, JPEGArtifacts, ChromaticAberration
 from .drawing import PenBleed, HandAnnotation, Watermark
 
@@ -26,6 +26,8 @@ REGISTRY: dict[str, type[BaseTransform]] = {
     "UnevenLight": UnevenLight,
     "ScannerShadow": ScannerShadow,
     "Moire": Moire,
+    "DirtyRollers": DirtyRollers,
+    "BookBinding": BookBinding,
     # Camera
     "DefocusBlur": DefocusBlur,
     "MotionBlur": MotionBlur,
