@@ -5,7 +5,7 @@ technical drawings, documents) into realistic scan/photo-like images. Useful for
 training and evaluating CV models on inputs that look like real-world scans, phone
 photos, and photocopies.
 
-**[See visual demo of all 21 transforms and 6 presets](DEMO.md)**
+**[See visual demo of all 23 transforms and 6 presets](DEMO.md)**
 
 ## Why
 
@@ -25,7 +25,9 @@ thousands of real scans.
 ### Physical Damage
 - **Fold marks** — straight crease lines with slight offset and shadow
 - **Wrinkles** — local elastic deformation with highlight/shadow
-- **Edge wear** — darkened/damaged margins, dog-ears
+- **Edge wear** — organic wavy-boundary margin darkening with speckle noise
+- **Surface wear** — scratches, scuff marks, and faded bands from handling
+- **Holes** — punch holes, worm/insect holes, torn spots with fiber edges
 
 ### Scanner Artifacts
 - **Rotation** — slight misalignment (±5°) with background fill

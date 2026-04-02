@@ -6,7 +6,7 @@ and through each preset pipeline (6 random variants per preset).
 
 ## Overview
 
-All 21 transforms at a glance — original on the left in each row, transforms to the right:
+All 23 transforms at a glance — original on the left in each row, transforms to the right:
 
 ![All transforms overview](docs/images/composite_all_transforms.png)
 
@@ -48,9 +48,17 @@ All 21 transforms at a glance — original on the left in each row, transforms t
 
 ![Wrinkle](docs/images/Wrinkle.png)
 
-**EdgeWear** — Darkened/damaged margins simulating handling wear.
+**EdgeWear** — Organic edge wear with wavy spline boundaries, darkening, and scattered noise.
 
 ![EdgeWear](docs/images/EdgeWear.png)
+
+**SurfaceWear** — Scratches, scuff marks, and faded bands from handling and abrasion.
+
+![SurfaceWear](docs/images/SurfaceWear.png)
+
+**Holes** — Punch holes (clean circles with shadow ring), worm holes (tiny irregular), and torn spots (jagged outline with fiber edges).
+
+![Holes](docs/images/Holes.png)
 
 ---
 

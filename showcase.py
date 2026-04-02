@@ -93,7 +93,9 @@ def main():
         "Foxing":              {"count": 60, "radius": 4},
         "FoldMark":            {"count": 2, "shadow_width": 4, "darkness": 0.35},
         "Wrinkle":             {"count": 3, "strength": 8.0},
-        "EdgeWear":            {"width": 0.08, "darkness": 0.6},
+        "EdgeWear":            {"width": 0.08, "darkness": 0.6, "noise_strength": 0.2},
+        "SurfaceWear":         {"count": 10, "intensity": 0.3},
+        "Holes":               {"count": 5, "type": "mixed"},
         "Rotation":            {"angle": 4.0},
         "Perspective":         {"strength": 0.04},
         "UnevenLight":         {"falloff": 0.35},
@@ -112,7 +114,7 @@ def main():
     # Category grouping for the composite
     categories = {
         "Paper & Aging":     ["PaperColor", "PaperTexture", "InkFading", "CoffeeStain", "Foxing"],
-        "Physical Damage":   ["FoldMark", "Wrinkle", "EdgeWear"],
+        "Physical Damage":   ["FoldMark", "Wrinkle", "EdgeWear", "SurfaceWear", "Holes"],
         "Scanner Artifacts": ["Rotation", "Perspective", "UnevenLight", "ScannerShadow", "Moire"],
         "Camera Artifacts":  ["DefocusBlur", "MotionBlur", "GaussianNoise", "JPEGArtifacts", "ChromaticAberration"],
         "Drawing Artifacts": ["PenBleed", "HandAnnotation", "Watermark"],
