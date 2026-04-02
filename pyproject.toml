@@ -1,0 +1,20 @@
+[project]
+name = "scan-simulator"
+version = "0.1.0"
+description = "Synthetic scan/photo degradation for document images"
+requires-python = ">=3.10"
+dependencies = [
+    "opencv-python>=4.8",
+    "numpy>=1.24",
+    "Pillow>=10.0",
+    "scipy>=1.11",
+    "scikit-image>=0.21",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+scan-simulator = "scan_simulator.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
