@@ -5,6 +5,8 @@ technical drawings, documents) into realistic scan/photo-like images. Useful for
 training and evaluating CV models on inputs that look like real-world scans, phone
 photos, and photocopies.
 
+**[See visual demo of all 21 transforms and 6 presets](DEMO.md)**
+
 ## Why
 
 CV models trained on clean digital images often fail on real-world inputs: scanned
